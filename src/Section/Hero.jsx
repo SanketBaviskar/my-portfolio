@@ -40,7 +40,7 @@ const Hero = () => {
           >
             💡
           </button>
-          Hi, I am Sanket{" "}
+          Hi, I am Sanket
           <span className="waving-hand" style={{ cursor: "pointer" }}>
             👋
           </span>
@@ -48,6 +48,12 @@ const Hero = () => {
         <p className="hero_tag text-gray_gradient">
           I am a Full Stack <span className="whitespace-nowrap">Developer</span>
         </p>
+        {/* {turnOn && (
+          <p className="text-gray-50 text-center">
+            Please turn off the lights before you go. The power bill is going
+            crazy !!!!
+          </p>
+        )} */}
       </div>
       <div className="w-full h-full absolute inset-0">
         <Canvas
@@ -63,7 +69,7 @@ const Hero = () => {
             <PerspectiveCamera makeDefault position={[0, 0, 20]} />
             {/* <Atom/> */}
             {!turnOn && <MouseLight />}
-            <HeroCamera isMobile={isMobile} >
+            <HeroCamera isMobile={isMobile}>
               <HackerRoom
                 scale={sizes.deskScale}
                 position={sizes.deskPosition}
@@ -92,7 +98,11 @@ const Hero = () => {
       </div>
       <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
         <a href="#about" className="w-fit">
-          <Button name="Let's work together" isBeam containerClass="sm:w-fit w-full sm:min-w-96" />
+          <Button
+            name="Let's work together"
+            isBeam
+            containerClass="sm:w-fit w-full sm:min-w-96"
+          />
         </a>
       </div>
     </section>

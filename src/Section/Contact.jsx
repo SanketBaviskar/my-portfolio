@@ -9,7 +9,6 @@ const Contact = () => {
 
   const { alert, showAlert, hideAlert } = useAlert();
   const [loading, setLoading] = useState(false);
-
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -65,16 +64,18 @@ const Contact = () => {
   };
 
   return (
+
     <section className="c-space my-20" id="contact">
+        <p className=" text-green-50 text-center">Have you tried turning on Lights yet? it a small 💡 emoji at the top</p>
       {alert.show && <Alert {...alert} />}
 
       <div className="relative min-h-screen flex items-center justify-center flex-col">
         <img src="/assets/terminal.png" alt="terminal-bg" className="absolute inset-0 min-h-screen" />
 
         <div className="contact-container">
-          <h3 className="head-text">Let's talk</h3>
+          <h3 className="head-text">Let's Have a Chat!!!</h3>
           <p className="text-lg text-white-600 mt-3">
-            Whether you’re looking to build a new website, improve your existing platform, or bring a unique project to
+            Whether you’re looking to build something, improve your existing platform, or bring a unique project to
             life, I’m here to help.
           </p>
 
