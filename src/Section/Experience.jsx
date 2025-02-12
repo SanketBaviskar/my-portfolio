@@ -1,13 +1,59 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-
+import { gsap } from 'gsap';
 import Developer from '../components/Developer.jsx';
 import CanvasLoader from '../components/CanvasLoader.jsx';
 import { workExperiences } from '../constants/index.js';
 
 const WorkExperience = () => {
   const [animationName, setAnimationName] = useState('idle');
+  const workContentRefs = useRef([]);
+
+  useEffect(() => {
+    // GSAP animations for work experience items
+    workContentRefs.current.forEach((el, index) => {
+      if (el) {
+        gsap.from(el, {
+          opacity: 0,
+          y: 50,
+          duration: 0.5,
+          delay: index * 0.2,
+          ease: 'power2.out',
+        });
+
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          delay: index * 0.2,
+          ease: 'power2.out',
+        });
+      }
+    });
+  }, []);
+
+  const handleHover = (index) => {
+    const el = workContentRefs.current[index];
+    if (el) {
+      gsap.to(el, {
+        scale: 1.05,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    }
+  };
+
+  const handleHoverOut = (index) => {
+    const el = workContentRefs.current[index];
+    if (el) {
+      gsap.to(el, {
+        scale: 1,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    }
+  };
 
   return (
     <section className="c-space my-20" id="work">
@@ -33,24 +79,30 @@ const WorkExperience = () => {
               {workExperiences.map((item, index) => (
                 <div
                   key={index}
+                  ref={(el) => (workContentRefs.current[index] = el)}
                   onClick={() => setAnimationName(item.animation.toLowerCase())}
-                  onPointerOver={() => setAnimationName(item.animation.toLowerCase())}
-                  onPointerOut={() => setAnimationName('idle')}
-                  className="work-content_container group">
+                  onPointerOver={() => {
+                    setAnimationName(item.animation.toLowerCase());
+                    handleHover(index);
+                  }}
+                  onPointerOut={() => {
+                    setAnimationName('idle');
+                    handleHoverOut(index);
+                  }}
+                  className="work-content_container group"
+                >
                   <div className="flex flex-col h-full justify-start items-center py-2">
-                    <div className="work-content_logo">
-                      <img className="w-full h-full" src={item.icon} alt="" />
-                    </div>
-
                     <div className="work-content_bar" />
                   </div>
 
                   <div className="sm:p-5 px-2.5 py-5">
-                    <p className="font-bold text-white-800">{item.name}</p>
-                    <p className="text-sm mb-5">
+                    <p className="font-bold text-white-800 text-gray-50">{item.name}</p>
+                    <p className="text-sm mb-5 text-gray-100">
                       {item.pos} -- <span>{item.duration}</span>
                     </p>
-                    <p className="group-hover:text-white transition-all ease-in-out duration-500">{item.title}</p>
+                    <p className="group-hover:text-white transition-all ease-in-out duration-500 text-gray-200">
+                      {item.title}
+                    </p>
                   </div>
                 </div>
               ))}
