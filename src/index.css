@@ -265,3 +265,21 @@
      transform: rotate(0deg);
    }
  }
+
+ .field-input {
+  color: white;
+  background-color: transparent;
+  border: 1px solid #666666;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.field-input::placeholder {
+  color: #ccc;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: #61dafb;
+}

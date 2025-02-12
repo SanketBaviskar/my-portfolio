@@ -15,56 +15,36 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    emailjs
-      .send(
+    try {
+      await emailjs.send(
         import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
         {
           from_name: form.name,
-          to_name: 'JavaScript Mastery',
+          to_name: 'Sanket',
           from_email: form.email,
-          to_email: 'sujata@jsmastery.pro',
+          to_email: 'sanketbaviskar11@gmail.com',
           message: form.message,
         },
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY,
       )
-      .then(
-        () => {
-          setLoading(false);
-          showAlert({
-            show: true,
-            text: 'Thank you for your message 😃',
-            type: 'success',
-          });
-
-          setTimeout(() => {
-            hideAlert(false);
-            setForm({
-              name: '',
-              email: '',
-              message: '',
-            });
-          }, [3000]);
-        },
-        (error) => {
-          setLoading(false);
-          console.error(error);
-
-          showAlert({
-            show: true,
-            text: "I didn't receive your message 😢",
-            type: 'danger',
-          });
-        },
-      );
+      setLoading(false);
+      alert('your messege is sent')
+      setForm({
+        name:'', email:'', value:''
+      })
+    } catch (error){
+      setLoading(false)
+      console.log(error);
+      alert("Something went wrong !")
+    }
+   
   };
 
   return (
-
     <section className="c-space my-20" id="contact">
         <p className=" text-green-50 text-center">Have you tried turning on Lights yet? it a small 💡 emoji at the top</p>
       {alert.show && <Alert {...alert} />}
@@ -73,8 +53,8 @@ const Contact = () => {
         <img src="/assets/terminal.png" alt="terminal-bg" className="absolute inset-0 min-h-screen" />
 
         <div className="contact-container">
-          <h3 className="head-text">Let's Have a Chat!!!</h3>
-          <p className="text-lg text-white-600 mt-3">
+          <h3 className="head-text text-white">Let's Have a Chat!!!</h3>
+          <p className="text-lg text-white-600 mt-3 text-white">
             Whether you’re looking to build something, improve your existing platform, or bring a unique project to
             life, I’m here to help.
           </p>
